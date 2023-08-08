@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
 
-function List({ tags, title, id, setIsOpen, isOpen, isClicked, setIsClicked }) {
-  // const [tagNum, setTagNum] = useState(-1);
+function List({ tags, title, id }) {
   const [tagNum, setTagNum] = useState(tags.length); // 初始值设为标签总数
-  const [btnContent, setBtnContent] = useState("更多"); // 初始值设为标签总数
+  const [btnContent, setBtnContent] = useState("更多");
+  const [isOpen, setIsOpen] = useState(false)
 
   function getTagNum() {
     let tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
