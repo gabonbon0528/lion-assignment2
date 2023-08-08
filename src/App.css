@@ -14,15 +14,27 @@ body {
 
 .list {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: start;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.list:last-child{
+  margin-bottom: 0;
 }
 
 .title {
   margin-right: 10px;
+  flex-basis: 80px;
+  padding: 5px 0;
 }
 
 .tags {
   display: flex;
+  flex-wrap: wrap;
+  flex-basis: 80%;
+  flex-grow: 1;
 }
 
 .tag {
@@ -30,9 +42,15 @@ body {
   border-radius: 20px;
   padding: 5px 10px;
   margin-right: 3px;
+  margin-bottom: 5px;
   cursor: pointer;
 
-  transition: .1s;
+  transition: 0.1s;
+}
+
+.tag.clicked{
+  background-color: tomato;
+  color: #fff;
 }
 
 .tag:hover {
@@ -40,14 +58,40 @@ body {
   color: #fff;
 }
 
-.border{
+.switch-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-basis: 5%;
+  padding: 5px 0;
+}
+
+.border {
   display: block;
   width: 1.5px;
   height: 15px;
   background-color: rgba(128, 128, 128, 0.5);
-  margin: 0 5px;
 }
 
 .switch-btn {
-  color: blue;
+  flex-basis: 60%;
+  color: #559fc4;
+  margin-left: 10px;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.switch-arrow {
+  display: block;
+  height: 15px;
+  width: 15px;
+
+  background-image: url(./assests/arrow.svg);
+  background-position: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.switch-block.open .switch-arrow {
+  transform: rotate(180deg);
 }
