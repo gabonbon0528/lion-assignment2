@@ -11,7 +11,7 @@ function TypeList({
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
-  function onClicked(type) {
+  function onClickType(type) {
     setIsSelected(!isSelected);
     if (type.TypeName === "鐵路") {
       setIsRailwayActive(!isRailwayActive);
@@ -29,8 +29,8 @@ function TypeList({
             <Type
               type={type}
               key={type.TypeNo}
-              onClicked={() => {
-                onClicked(type);
+              onClickType={() => {
+                onClickType(type);
               }}
             />
           );

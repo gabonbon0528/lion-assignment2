@@ -51,7 +51,12 @@ function App() {
       )}
 
       {isRailwayActive && (
-        <List key={"railway"} id="railway" tags={railwayList} title="鐵路規格" />
+        <List
+          key={"railway"}
+          id="railway"
+          tags={railwayList}
+          title="鐵路規格"
+        />
       )}
 
       <List
@@ -60,7 +65,12 @@ function App() {
         tags={specificationList}
         title="產品規格"
       />
-      <List id="marketing" tags={marketingList} title="行銷活動" />
+      <List
+        key={"marketing"}
+        id="marketing"
+        tags={marketingList}
+        title="行銷活動"
+      />
     </div>
   );
 }

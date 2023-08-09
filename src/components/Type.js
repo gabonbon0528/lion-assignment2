@@ -1,18 +1,16 @@
 import { useState } from "react";
 
-function Type({ type, onClicked }) {
+function Type({ type, onClickType }) {
   const [isClicked, setIsClicked] = useState(false);
 
   function switchType(type) {
     setIsClicked(!isClicked);
-    onClicked();
-    console.log(`icon${type.TypeCode}`);
+    onClickType();
   }
 
   return (
     <div
       className={`tag ${isClicked && "clicked"}`}
-      key={type.TypeNo}
       onClick={() => {
         switchType(type);
       }}
