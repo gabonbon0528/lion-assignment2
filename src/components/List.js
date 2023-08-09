@@ -4,7 +4,7 @@ import Tag from "../components/Tag";
 function List({ tags, title, id }) {
   const [tagNum, setTagNum] = useState(tags.length); // 初始值设为标签总数
   const [btnContent, setBtnContent] = useState("更多");
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   function getTagNum() {
     let tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
@@ -19,7 +19,7 @@ function List({ tags, title, id }) {
         break;
       }
     }
-    setTagNum(newTagNum); // 更新 tagNum
+    setTagNum(newTagNum);
   }
 
   function switchBtn() {
@@ -36,20 +36,12 @@ function List({ tags, title, id }) {
       <div className="title">{title}</div>
       <div className="tags">
         {isOpen
-          ? tags.map((tag) => (
-              <Tag
-                key={tag.TagNo}
-                tag={tag}
-              />
+          ? tags.map((tag, index) => (
+              <Tag key={tag.TagNo} tag={tag} index={index} />
             ))
-          : tags
-              .slice(0, tagNum)
-              .map((tag) => (
-                <Tag
-                  key={tag.TagNo}
-                  tag={tag}
-                />
-              ))}
+          : tags.map((tag, index) => (
+              <Tag key={tag.TagNo} tag={tag} index={index} tagNum={tagNum} />
+            ))}
       </div>
       <div className={`switch-block ${isOpen && "open"}`}>
         {tagNum < tags.length && (

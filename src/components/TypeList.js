@@ -1,13 +1,23 @@
 import Type from "./Type";
 import { useState } from "react";
 
-function TypeList({ types, title, isTypeActive, setIsTypeActive }) {
+function TypeList({
+  types,
+  title,
+  isFerryActive,
+  setIsFerryActive,
+  isRailwayActive,
+  setIsRailwayActive,
+}) {
   const [isSelected, setIsSelected] = useState(false);
 
-  function onClicked() {
+  function onClicked(type) {
     setIsSelected(!isSelected);
-    setIsTypeActive(!isTypeActive);
-    console.log(isSelected);
+    if (type.TypeName === "鐵路") {
+      setIsRailwayActive(!isRailwayActive);
+    } else if (type.TypeName === "郵輪") {
+      setIsFerryActive(!isFerryActive);
+    }
   }
 
   return (
@@ -16,7 +26,13 @@ function TypeList({ types, title, isTypeActive, setIsTypeActive }) {
       <div className="tags">
         {types.map((type) => {
           return (
-            <Type type={type} key={type.TypeNo} onClicked={onClicked}/>
+            <Type
+              type={type}
+              key={type.TypeNo}
+              onClicked={() => {
+                onClicked(type);
+              }}
+            />
           );
         })}
       </div>
