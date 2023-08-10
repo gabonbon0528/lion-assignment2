@@ -20,7 +20,7 @@ body {
   margin-bottom: 10px;
 }
 
-.list:last-child{
+.list:last-child {
   margin-bottom: 0;
 }
 
@@ -44,19 +44,19 @@ body {
   margin-right: 3px;
   margin-bottom: 5px;
   cursor: pointer;
-  
+
   display: flex;
   align-items: center;
-  
+
   transition: 0.1s;
 }
 
-.tag.clicked{
+.tag.clicked {
   background-color: tomato;
   color: #fff;
 }
 
-.tag.none{
+.tag.none {
   display: none;
 }
 
@@ -103,23 +103,20 @@ body {
   transform: rotate(180deg);
 }
 
-.icon01, .icon02, .icon03{
-  display: block;
-  width: 15px;
-  height: 15px;
+.icon01,
+.icon02,
+.icon03 {
   margin-right: 3px;
-  background-position: center;
-  background-size: cover;
 }
 
-.icon01{
-  background-image: url(./assests/icon2.svg);
+path {
+  transition: 0.1s;
 }
 
-.icon02{
-  background-image: url(./assests/icon1.svg);
+.clicked.tag path {
+  fill: #fff;
 }
 
-.icon03{
-  background-image: url(./assests/icon3.svg);
+.tag:hover path {
+  fill: #fff;
 }

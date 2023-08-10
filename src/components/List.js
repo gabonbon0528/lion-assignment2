@@ -4,7 +4,8 @@ import Tag from "../components/Tag";
 function List({ tags, title, id }) {
   const [tagNum, setTagNum] = useState(tags.length); // 初始值设为标签总数
   const [btnContent, setBtnContent] = useState("更多");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFolderOpen, setIsFolderOpen] = useState(false);
+  const [clickedData, setClickedData] = useState([]);
 
   function getTagNum() {
     let tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
@@ -22,9 +23,14 @@ function List({ tags, title, id }) {
     setTagNum(newTagNum);
   }
 
-  function switchBtn() {
-    setIsOpen(!isOpen);
-    setBtnContent(isOpen ? "更多" : "收起");
+  function switchFolder() {
+    setIsFolderOpen(!isFolderOpen);
+    setBtnContent(isFolderOpen ? "更多" : "收起");
+  }
+
+  function addData(newData) {
+    !clickedData.includes(newData) && setClickedData([...clickedData, newData]);
+    console.log(clickedData)
   }
 
   useEffect(() => {
@@ -35,22 +41,25 @@ function List({ tags, title, id }) {
     <div className="list" id={id}>
       <div className="title">{title}</div>
       <div className="tags">
-        {isOpen
-          ? tags.map((tag, index) => (
-              <Tag key={tag.TagNo} tag={tag} index={index} />
-            ))
-          : tags.map((tag, index) => (
-              <Tag key={tag.TagNo} tag={tag} index={index} tagNum={tagNum} />
-            ))}
+        {tags.map((tag, index) => (
+          <Tag
+            key={tag.TagNo}
+            tag={tag}
+            index={index}
+            tagNum={tagNum}
+            isFolderOpen={isFolderOpen}
+            addData={addData}
+          />
+        ))}
       </div>
-      <div className={`switch-block ${isOpen && "open"}`}>
+      <div className={`switch-block ${isFolderOpen && "open"}`}>
         {tagNum < tags.length && (
           <>
             <span className="border"></span>
             <div
               className="switch-btn"
               onClick={() => {
-                switchBtn();
+                switchFolder();
               }}
             >
               {btnContent}

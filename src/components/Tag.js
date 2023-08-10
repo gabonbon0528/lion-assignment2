@@ -1,17 +1,18 @@
 import { useState } from "react";
 
-function Tag({ tag, index, tagNum }) {
+function Tag({ tag, index, tagNum, isFolderOpen, addData }) {
   const [isClicked, setIsClicked] = useState(false);
 
-  function switchTag() {
+  function switchTag(tag) {
     setIsClicked(!isClicked);
+    addData(tag.TagName);
   }
 
   return (
     <div
-      className={`tag ${isClicked && "clicked"} ${index > tagNum && "none"}`}
+      className={`tag ${isClicked && "clicked"} ${(index > tagNum && !isFolderOpen) && "none"}`}
       onClick={() => {
-        switchTag();
+        switchTag(tag);
       }}
     >
       {tag.TagName}

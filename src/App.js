@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const dataTripTypeList = TripTypeList;
+  
   let specificationList = [];
   for (let i = 0; i < CategoryList[0].TypeList.length; i++) {
     specificationList = [
@@ -65,12 +66,14 @@ function App() {
         tags={specificationList}
         title="產品規格"
       />
+
       <List
         key={"marketing"}
         id="marketing"
         tags={marketingList}
         title="行銷活動"
       />
+      
     </div>
   );
 }
