@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const dataTripTypeList = TripTypeList;
-  
+
   let specificationList = [];
   for (let i = 0; i < CategoryList[0].TypeList.length; i++) {
     specificationList = [
@@ -17,21 +17,16 @@ function App() {
   }
   const marketingList = CategoryList[1].TypeList[0].GroupList[0].TagList;
 
-  let ferryList = [];
-  for (let i = 0; i < CategoryList[2].TypeList[0].GroupList.length; i++) {
-    ferryList = [
-      ...ferryList,
-      ...CategoryList[2].TypeList[0].GroupList[i].TagList,
-    ];
-  }
-
-  let railwayList = [];
-  for (let i = 0; i < CategoryList[2].TypeList[0].GroupList.length; i++) {
-    railwayList = [
-      ...railwayList,
-      ...CategoryList[2].TypeList[1].GroupList[i].TagList,
-    ];
-  }
+  const getTransportationList = (typeListIndex) => {
+    let transportationList = [];
+    for (let i = 0; i < CategoryList[2].TypeList[typeListIndex].GroupList.length; i++) {
+      transportationList = [
+        ...transportationList,
+        ...CategoryList[2].TypeList[typeListIndex].GroupList[i].TagList,
+      ];
+    }
+    return transportationList;
+  };
 
   const [isFerryActive, setIsFerryActive] = useState(false);
   const [isRailwayActive, setIsRailwayActive] = useState(false);
@@ -48,14 +43,19 @@ function App() {
       />
 
       {isFerryActive && (
-        <List key={"ferry"} id="ferry" tags={ferryList} title="郵輪規格" />
+        <List
+          key={"ferry"}
+          id="ferry"
+          tags={getTransportationList(0)}
+          title="郵輪規格"
+        />
       )}
 
       {isRailwayActive && (
         <List
           key={"railway"}
           id="railway"
-          tags={railwayList}
+          tags={getTransportationList(1)}
           title="鐵路規格"
         />
       )}
@@ -66,14 +66,12 @@ function App() {
         tags={specificationList}
         title="產品規格"
       />
-
       <List
         key={"marketing"}
         id="marketing"
         tags={marketingList}
         title="行銷活動"
       />
-      
     </div>
   );
 }

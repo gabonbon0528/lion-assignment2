@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Tag from "../components/Tag";
+import SwitchBtn from "./SwitchBtn";
 
 function List({ tags, title, id }) {
   const [tagNum, setTagNum] = useState(tags.length); // 初始值设为标签总数
@@ -7,67 +8,58 @@ function List({ tags, title, id }) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [clickedData, setClickedData] = useState([]);
 
-  function getTagNum() {
-    let tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
+  useEffect(() => {
+    const tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
     let tagLength = 0;
     let newTagNum = tags.length;
 
     for (let i = 0; i < document.querySelectorAll(`#${id} .tag`).length; i++) {
       if (tagLength < tagsLength) {
-        tagLength += document.querySelectorAll(`#${id} .tag`)[i].offsetWidth;
+        tagLength +=
+          document.querySelectorAll(`#${id} .tag`)[i].offsetWidth + 3;
       } else {
         newTagNum = i - 2;
         break;
       }
     }
     setTagNum(newTagNum);
-  }
+  }, []);
 
-  function switchFolder() {
+  const switchFolder = () => {
     setIsFolderOpen(!isFolderOpen);
     setBtnContent(isFolderOpen ? "更多" : "收起");
-  }
+  };
 
-  function addData(newData) {
+  const addData = (newData) => {
     !clickedData.includes(newData) && setClickedData([...clickedData, newData]);
-    console.log(clickedData)
-  }
+  };
 
-  useEffect(() => {
-    getTagNum();
-  }, []);
+  const memoizedTags = useMemo(
+    () =>
+      tags.map((tag, index) => (
+        <Tag
+          key={tag.TagNo}
+          tag={tag}
+          index={index}
+          tagNum={tagNum}
+          isFolderOpen={isFolderOpen}
+          addData={addData}
+        />
+      )),
+    [tagNum, isFolderOpen]
+  );
 
   return (
     <div className="list" id={id}>
       <div className="title">{title}</div>
-      <div className="tags">
-        {tags.map((tag, index) => (
-          <Tag
-            key={tag.TagNo}
-            tag={tag}
-            index={index}
-            tagNum={tagNum}
-            isFolderOpen={isFolderOpen}
-            addData={addData}
-          />
-        ))}
-      </div>
-      <div className={`switch-block ${isFolderOpen && "open"}`}>
-        {tagNum < tags.length && (
-          <>
-            <span className="border"></span>
-            <div
-              className="switch-btn"
-              onClick={() => {
-                switchFolder();
-              }}
-            >
-              {btnContent}
-            </div>
-            <span className="switch-arrow"></span>
-          </>
-        )}
-      </div>
+      <div className="tags">{memoizedTags}</div>
+      <SwitchBtn
+        isFolderOpen={isFolderOpen}
+        tagNum={tagNum}
+        tags={tags}
+        switchFolder={switchFolder}
+        btnContent={btnContent}
+      />
     </div>
   );
 }
