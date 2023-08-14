@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useLayoutEffect } from "react";
 import Tag from "../components/Tag";
 import SwitchBtn from "./SwitchBtn";
 
@@ -8,7 +8,7 @@ function List({ tags, title, id }) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [clickedData, setClickedData] = useState([]);
 
-  useEffect(() => {
+  const getTagNum = () => {
     const tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
     let tagLength = 0;
     let newTagNum = tags.length;
@@ -23,6 +23,30 @@ function List({ tags, title, id }) {
       }
     }
     setTagNum(newTagNum);
+    if (id == "specification") {
+      console.log("newTagNum", newTagNum, "tagNum", tagNum);
+    }
+  };
+
+  function debounce(func, delay = 250) {
+    let timer = null;
+
+    return function (...args) {
+      let context = this;
+
+      clearTimeout(timer);
+      return setTimeout(() => {
+        func;
+      }, delay);
+    };
+  }
+
+  useLayoutEffect(() => {
+    getTagNum();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", debounce(getTagNum));
   }, []);
 
   const switchFolder = () => {
@@ -34,25 +58,37 @@ function List({ tags, title, id }) {
     !clickedData.includes(newData) && setClickedData([...clickedData, newData]);
   };
 
-  const memoizedTags = useMemo(
-    () =>
-      tags.map((tag, index) => (
-        <Tag
-          key={tag.TagNo}
-          tag={tag}
-          index={index}
-          tagNum={tagNum}
-          isFolderOpen={isFolderOpen}
-          addData={addData}
-        />
-      )),
-    [tagNum, isFolderOpen]
-  );
+  // const memoizedTags = useMemo(
+  //   () =>
+  //     tags.map((tag, index) => (
+  //       <Tag
+  //         key={tag.TagNo}
+  //         tag={tag}
+  //         index={index}
+  //         tagNum={tagNum}
+  //         isFolderOpen={isFolderOpen}
+  //         addData={addData}
+  //       />
+  //     )),
+  //   [tagNum, isFolderOpen]
+  // );
 
   return (
     <div className="list" id={id}>
       <div className="title">{title}</div>
-      <div className="tags">{memoizedTags}</div>
+      <div className="tags">
+        {/* {memoizedTags} */}
+        {tags.map((tag, index) => (
+          <Tag
+            key={tag.TagNo}
+            tag={tag}
+            index={index}
+            tagNum={tagNum}
+            isFolderOpen={isFolderOpen}
+            addData={addData}
+          />
+        ))}
+      </div>
       <SwitchBtn
         isFolderOpen={isFolderOpen}
         tagNum={tagNum}

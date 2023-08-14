@@ -22,7 +22,9 @@ function TypeList({
 
   return (
     <div className="list">
-      <div className="title">{title}</div>
+      <div className="title">
+        {title}
+      </div>
       <div className="tags">
         {types.map((type) => {
           return (
