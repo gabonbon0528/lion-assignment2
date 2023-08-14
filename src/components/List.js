@@ -3,7 +3,7 @@ import Tag from "../components/Tag";
 import SwitchBtn from "./SwitchBtn";
 
 function List({ tags, title, id }) {
-  const [tagNum, setTagNum] = useState(tags.length); // 初始值设为标签总数
+  const [tagNum, setTagNum] = useState(tags.length);
   const [btnContent, setBtnContent] = useState("更多");
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [clickedData, setClickedData] = useState([]);
