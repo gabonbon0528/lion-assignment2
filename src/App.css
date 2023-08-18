@@ -37,6 +37,11 @@ body {
   flex-grow: 1;
 }
 
+.overflow-y-hidden{
+  height: 35px;
+  overflow-y: hidden;
+}
+
 .tag {
   border: 1px solid rgba(128, 128, 128, 0.5);
   border-radius: 20px;

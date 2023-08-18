@@ -3,12 +3,50 @@ import Tag from "../components/Tag";
 import SwitchBtn from "./SwitchBtn";
 
 function List({ tags, title, id }) {
-  const [tagNum, setTagNum] = useState(tags.length);
+  // const [tagNum, setTagNum] = useState(tags.length);
   const [btnContent, setBtnContent] = useState("更多");
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [clickedData, setClickedData] = useState([]);
+  const [isBtnShown, setIsBtnShown] = useState(false);
 
-  const getTagNum = () => {
+  // const getTagNum = () => {
+  //   const tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
+  //   let tagLength = 0;
+  //   let newTagNum = tags.length;
+
+  //   for (let i = 0; i < document.querySelectorAll(`#${id} .tag`).length; i++) {
+  //     if (tagLength < tagsLength) {
+  //       tagLength +=
+  //         document.querySelectorAll(`#${id} .tag`)[i].offsetWidth + 3;
+  //     } else {
+  //       newTagNum = i - 2;
+  //       break;
+  //     }
+  //   }
+  //   setTagNum(newTagNum);
+  //   if (id == "specification") {
+  //     console.log("newTagNum", newTagNum, "tagNum", tagNum);
+  //   }
+  // };
+
+  // function debounce(func, delay = 250) {
+  //   let timer = null;
+
+  //   return function (...args) {
+  //     let context = this;
+
+  //     clearTimeout(timer);
+  //     return setTimeout(() => {
+  //       func;
+  //     }, delay);
+  //   };
+  // }
+
+  // useLayoutEffect(() => {
+  //   getTagNum();
+  // }, []);
+
+  useLayoutEffect(() => {
     const tagsLength = document.querySelectorAll(".tags")[1].offsetWidth;
     let tagLength = 0;
     let newTagNum = tags.length;
@@ -22,31 +60,7 @@ function List({ tags, title, id }) {
         break;
       }
     }
-    setTagNum(newTagNum);
-    if (id == "specification") {
-      console.log("newTagNum", newTagNum, "tagNum", tagNum);
-    }
-  };
 
-  function debounce(func, delay = 250) {
-    let timer = null;
-
-    return function (...args) {
-      let context = this;
-
-      clearTimeout(timer);
-      return setTimeout(() => {
-        func;
-      }, delay);
-    };
-  }
-
-  useLayoutEffect(() => {
-    getTagNum();
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", debounce(getTagNum));
   }, []);
 
   const switchFolder = () => {
@@ -76,26 +90,19 @@ function List({ tags, title, id }) {
   return (
     <div className="list" id={id}>
       <div className="title">{title}</div>
-      <div className="tags">
+      <div className={`tags ${!isFolderOpen && "overflow-y-hidden"}`}>
         {/* {memoizedTags} */}
-        {tags.map((tag, index) => (
-          <Tag
-            key={tag.TagNo}
-            tag={tag}
-            index={index}
-            tagNum={tagNum}
-            isFolderOpen={isFolderOpen}
-            addData={addData}
-          />
+        {tags.map((tag) => (
+          <Tag key={tag.TagNo} tag={tag} addData={addData} />
         ))}
       </div>
-      <SwitchBtn
-        isFolderOpen={isFolderOpen}
-        tagNum={tagNum}
-        tags={tags}
-        switchFolder={switchFolder}
-        btnContent={btnContent}
-      />
+      {true && (
+        <SwitchBtn
+          isFolderOpen={isFolderOpen}
+          switchFolder={switchFolder}
+          btnContent={btnContent}
+        />
+      )}
     </div>
   );
 }
