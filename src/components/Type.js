@@ -6,7 +6,7 @@ import { ReactComponent as RailwayIcon } from '../assests/icon3.svg'
 function Type({ type, onClickType }) {
   const [isClicked, setIsClicked] = useState(false);
 
-  function switchType(type) {
+  function switchType() {
     setIsClicked(!isClicked);
     onClickType();
   }

@@ -19,7 +19,11 @@ function App() {
 
   const getTransportationList = (typeListIndex) => {
     let transportationList = [];
-    for (let i = 0; i < CategoryList[2].TypeList[typeListIndex].GroupList.length; i++) {
+    for (
+      let i = 0;
+      i < CategoryList[2].TypeList[typeListIndex].GroupList.length;
+      i++
+    ) {
       transportationList = [
         ...transportationList,
         ...CategoryList[2].TypeList[typeListIndex].GroupList[i].TagList,
