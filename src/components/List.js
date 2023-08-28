@@ -8,13 +8,11 @@ function List({ tags, title, id }) {
 
   const tagsRef = useRef(null);
 
-  useLayoutEffect(() => {
-    let tagHeight = tagsRef.current.firstChild.offsetHeight;
-
-    if (tagsRef.current.offsetHeight > tagHeight) {
+  useEffect(() => {
+    if (tagsRef.current.offsetHeight > 37) {
       setIsBtnShown(true);
+      console.log('>37')
     }
-    console.log(tagsRef.current.firstChild.offsetHeight);
   }, []);
 
   return (
@@ -22,8 +20,7 @@ function List({ tags, title, id }) {
       <div className="title">{title}</div>
       <div
         ref={tagsRef}
-        // style={{ height: `${tagsRef.current.firstChild.offsetHeight}px`}}
-        className={`tags ${!isFolderOpen ? "overflow-y-hidden" : ""}`}
+        className={`tags ${isFolderOpen ? "" : "overflow-y-hidden"}`}
       >
         {tags.map((tag) => (
           <Tag key={tag.TagNo} tag={tag} />

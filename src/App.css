@@ -17,7 +17,7 @@ body {
   justify-content: space-between;
   align-items: start;
   text-align: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .list:last-child {
@@ -38,7 +38,7 @@ body {
 }
 
 .overflow-y-hidden{
-  /* height: 30px; */
+  height: 37px;
   overflow-y: hidden;
 }
 
