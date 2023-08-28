@@ -3,7 +3,7 @@ import List from "./components/List";
 import TypeList from "./components/TypeList";
 import TripTypeList from "./TripTypeList.json";
 import CategoryList from "./CategoryList.json";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function App() {
   const dataTripTypeList = TripTypeList;
@@ -47,35 +47,15 @@ function App() {
       />
 
       {isFerryActive && (
-        <List
-          key={"ferry"}
-          id="ferry"
-          tags={getTransportationList(0)}
-          title="郵輪規格"
-        />
+        <List id="ferry" tags={getTransportationList(0)} title="郵輪規格" />
       )}
 
       {isRailwayActive && (
-        <List
-          key={"railway"}
-          id="railway"
-          tags={getTransportationList(1)}
-          title="鐵路規格"
-        />
+        <List id="railway" tags={getTransportationList(1)} title="鐵路規格" />
       )}
 
-      <List
-        key={"specification"}
-        id="specification"
-        tags={specificationList}
-        title="產品規格"
-      />
-      <List
-        key={"marketing"}
-        id="marketing"
-        tags={marketingList}
-        title="行銷活動"
-      />
+      <List id="specification" tags={specificationList} title="產品規格" />
+      <List id="marketing" tags={marketingList} title="行銷活動" />
     </div>
   );
 }
