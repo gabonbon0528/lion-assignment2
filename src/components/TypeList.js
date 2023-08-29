@@ -1,4 +1,5 @@
 import Type from "./Type";
+import SwitchBtn from "./SwitchBtn";
 import { useState } from "react";
 
 function TypeList({
@@ -10,6 +11,8 @@ function TypeList({
   setIsRailwayActive,
 }) {
   const [isSelected, setIsSelected] = useState(false);
+  const [isFolderOpen, setIsFolderOpen] = useState(true);
+  const [isBtnShown, setIsBtnShown] = useState(false);
 
   function onClickType(type) {
     setIsSelected(!isSelected);
@@ -30,7 +33,7 @@ function TypeList({
           return (
             <Type
               type={type}
-              key={type.TypeNo}
+              key={type.TypeCode}
               onClickType={() => {
                 onClickType(type);
               }}
@@ -38,6 +41,13 @@ function TypeList({
           );
         })}
       </div>
+      {isBtnShown && (
+        <SwitchBtn
+          isFolderOpen={isFolderOpen}
+          setIsFolderOpen={setIsFolderOpen}
+        />
+      )}
+
     </div>
   );
 }
