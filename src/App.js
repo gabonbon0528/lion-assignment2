@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <List tags={tripTypeList} title="遊玩交通" />
+      <List tags={tripTypeList} title="遊玩交通" setTransportArr={setTransportArr} transportArr={transportArr}/>
 
       {/* {isFerryActive && (
         <List tags={getTransportationList(0)} title="郵輪規格" />

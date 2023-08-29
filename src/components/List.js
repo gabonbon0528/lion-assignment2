@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo, useLayoutEffect, useRef } from "react";
 import Tag from "../components/Tag";
 import SwitchBtn from "./SwitchBtn";
 
-function List({ tags, title, id }) {
+function List({ tags, title, id, transportArr, setTransportArr }) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [isBtnShown, setIsBtnShown] = useState(false);
 
@@ -50,6 +50,8 @@ function List({ tags, title, id }) {
           <Tag
             key={tag.TagNo || tag.TypeCode}
             tag={tag}
+            transportArr={transportArr}
+            setTransportArr={setTransportArr}
           />
         ))}
       </div>
