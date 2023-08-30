@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useLayoutEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Tag from "../components/Tag";
 import SwitchBtn from "./SwitchBtn";
 
@@ -9,10 +9,8 @@ function List({ tags, title, id, transportArr, setTransportArr }) {
   const tagsRef = useRef(null);
 
   useEffect(() => {
-    // console.log(tagsRef.current)
-    if (tagsRef.current && tagsRef.current.scrollHeight > 35) {
+    if (tagsRef.current.scrollHeight > 35) {
       setIsBtnShown(true);
-      setIsFolderOpen(false);
     }
   }, [tagsRef.current]);
 
@@ -20,7 +18,7 @@ function List({ tags, title, id, transportArr, setTransportArr }) {
     window.addEventListener("resize", debounce(handleResize, 1000));
   }, []);
 
-  function debounce(fn, delay = 300) {
+  function debounce(fn, delay = 100) {
     let timer;
     return (...args) => {
       clearTimeout(timer);

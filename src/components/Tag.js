@@ -8,15 +8,13 @@ function Tag({ tag, setTransportArr, transportArr }) {
 
   function switchType() {
     setIsClicked(!isClicked);
-    console.log(typeof transportArr, transportArr)
     if (tag.TypeCode) {
       if (!isClicked) {
-        // let newArr = transportArr.push(tag.TypeCode)
-        setTransportArr(transportArr.push(tag.TypeCode));
-        // console.log(typeof newArr, newArr);
-        console.log(transportArr);
+        const newArray = [...transportArr, tag.TypeCode].sort();
+        setTransportArr(newArray);
       } else {
-        console.log(transportArr);
+        const newArray = transportArr.filter(item => item !== tag.TypeCode);
+        setTransportArr(newArray);
       }
     }
   }
